@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: rs_pod
+  labels:
+    app: myapp
+    key: value
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      key: value
+  template:
+    metadata:
+      labels:
+        key: value
+    spec:
+      containers:
+        - name: myapp
+          image: nginx
+          ports:
+            - containerPort: 80
+              name: cn1
+               protocol: TCP
+          startupprobe: 
+            exec:
+              command:
+                - touch anufile
+          resources:
+            requests:
+               cpu: 100M
+               memory: 150Mi
+            limits: 
+              cpu: 150M
+              memory: 200Mi
+                
+                  
+              
